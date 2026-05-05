@@ -2,16 +2,18 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="description" content="GCN Digital Ltda — Consultoria em SEO, Marketing Digital e Desenvolvimento Fullstack. Presença orgânica com rigor técnico e resultados mensuráveis.">
   <meta name="author" content="Gilson Correia Neves">
   <meta property="og:title" content="GCN Digital — SEO · Fullstack · Digital">
-  <meta property="og:description" content="Consultoria especializada em SEO técnico, marketing digital e infraestrutura web. Resultados concretos para portais, empresas educacionais e negócios digitais.">
-  <meta property="og:url" content="https://gcndigital.com.br">
+  <meta property="og:description" content="GCN Digital Ltda — Consultoria sênior em SEO técnico, desenvolvimento fullstack e marketing digital. Rigor técnico e resultados mensuráveis para empresas, portais educacionais e negócios digitais.">
+  <meta property="og:url" content="https://gcndigital.com.br/">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://gcndigital.com.br/og-image.png">
+  <meta property="og:image:secure_url" content="https://gcndigital.com.br/og-image.png">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="GCN Digital — SEO, Fullstack e marketing digital">
@@ -19,7 +21,7 @@
   <meta property="og:site_name" content="GCN Digital">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="GCN Digital — SEO · Fullstack · Digital">
-  <meta name="twitter:description" content="Consultoria especializada em SEO técnico, marketing digital e infraestrutura web.">
+  <meta name="twitter:description" content="GCN Digital Ltda — Consultoria sênior em SEO técnico, desenvolvimento fullstack e marketing digital. Rigor técnico e resultados mensuráveis para empresas e portais.">
   <meta name="twitter:image" content="https://gcndigital.com.br/og-image.png">
   <link rel="canonical" href="https://gcndigital.com.br/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -66,7 +68,7 @@
         "@id": "https://gcndigital.com.br/#website",
         "url": "https://gcndigital.com.br/",
         "name": "GCN Digital",
-        "description": "Consultoria especializada em SEO técnico, marketing digital e infraestrutura web.",
+        "description": "GCN Digital Ltda — Consultoria sênior em SEO técnico, desenvolvimento fullstack e marketing digital. Rigor técnico e resultados mensuráveis.",
         "inLanguage": "pt-BR",
         "publisher": { "@id": "https://gcndigital.com.br/#organization" }
       },
@@ -75,7 +77,7 @@
         "@id": "https://gcndigital.com.br/#webpage",
         "url": "https://gcndigital.com.br/",
         "name": "GCN Digital — SEO · Fullstack · Digital",
-        "description": "Consultoria especializada em SEO técnico, marketing digital e infraestrutura web.",
+        "description": "GCN Digital Ltda — Consultoria sênior em SEO técnico, desenvolvimento fullstack e marketing digital. Rigor técnico e resultados mensuráveis.",
         "inLanguage": "pt-BR",
         "isPartOf": { "@id": "https://gcndigital.com.br/#website" },
         "about": { "@id": "https://gcndigital.com.br/#organization" },
@@ -207,12 +209,17 @@
       top: 0; left: 0; right: 0;
       z-index: 1000;
       padding: 1.25rem 0;
+      padding-left: env(safe-area-inset-left, 0px);
+      padding-right: env(safe-area-inset-right, 0px);
       transition: background var(--transition), padding var(--transition), box-shadow var(--transition);
     }
     nav.scrolled {
       background: rgba(8,26,53,.97);
       backdrop-filter: blur(12px);
-      padding: .85rem 0;
+      padding-top: .85rem;
+      padding-bottom: .85rem;
+      padding-left: env(safe-area-inset-left, 0px);
+      padding-right: env(safe-area-inset-right, 0px);
       box-shadow: 0 2px 24px rgba(0,0,0,.25);
     }
     .nav-inner {
@@ -1015,6 +1022,23 @@
 
     @media (max-width: 768px) {
       .section { padding: 70px 0; }
+      #hero {
+        align-items: flex-start;
+        padding-top: calc(5.35rem + env(safe-area-inset-top, 0px));
+      }
+      .hero-inner {
+        padding-top: 0.75rem;
+        padding-bottom: 4rem;
+      }
+      .hero-badge {
+        flex-wrap: wrap;
+        row-gap: 0.35rem;
+        max-width: 100%;
+        justify-content: flex-start;
+        font-size: 0.72rem;
+        letter-spacing: 0.06em;
+        padding: 0.5rem 0.85rem;
+      }
       .nav-links { display: none; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--navy-d); align-items: center; justify-content: center; gap: 2.5rem; }
       .nav-links.open { display: flex; }
       .nav-links a { font-size: 1.25rem; }
