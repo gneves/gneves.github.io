@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Google News: inclua aqui apenas URLs de matérias publicadas nas últimas ~48h.
+  Renomeie para news-sitemap.xml ao usar e referencie em robots.txt como segundo Sitemap.
+  Documentação: https://developers.google.com/search/docs/advanced/sitemaps/news-sitemap
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <!-- Exemplo (remova os comentários e use dados reais ao publicar):
+  <url>
+    <loc>https://gcndigital.com.br/blog/slug-da-materia</loc>
+    <news:news>
+      <news:publication>
+        <news:name>GCN Digital</news:name>
+        <news:language>pt</news:language>
+      </news:publication>
+      <news:publication_date>2026-05-05T12:00:00-03:00</news:publication_date>
+      <news:title>Título da matéria</news:title>
+    </news:news>
+  </url>
+  -->
+</urlset>
