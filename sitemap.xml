@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://gcndigital.com.br/</loc>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>1</priority>
+    <image:image>
+      <image:loc>https://gcndigital.com.br/og-image.png</image:loc>
+      <image:title>GCN Digital — SEO e desenvolvimento fullstack</image:title>
+      <image:caption>Consultoria em SEO técnico, marketing digital e infraestrutura web.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://gcndigital.com.br/logo.png</image:loc>
+      <image:title>GCN Digital — logotipo</image:title>
+      <image:caption>Marca GCN Digital Ltda.</image:caption>
+    </image:image>
   </url>
 </urlset>

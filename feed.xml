@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>GCN Digital</title>
+  <subtitle>Consultoria em SEO, marketing digital e desenvolvimento fullstack.</subtitle>
+  <link href="https://gcndigital.com.br/" rel="alternate"/>
+  <link href="https://gcndigital.com.br/feed.xml" rel="self"/>
+  <id>https://gcndigital.com.br/</id>
+  <updated>2026-05-05T18:00:00Z</updated>
+  <author>
+    <name>Gilson Correia Neves</name>
+    <email>gilson@gcndigital.com.br</email>
+  </author>
+  <entry>
+    <title>GCN Digital — Consultoria SEO e Fullstack</title>
+    <link href="https://gcndigital.com.br/" rel="alternate"/>
+    <id>https://gcndigital.com.br/#institucional</id>
+    <updated>2026-05-05T18:00:00Z</updated>
+    <summary type="text">Página institucional da GCN Digital Ltda — SEO, desenvolvimento e estratégia digital.</summary>
+  </entry>
+</feed>
