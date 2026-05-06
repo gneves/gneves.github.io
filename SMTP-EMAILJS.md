@@ -45,32 +45,72 @@ O fluxo seguro é: **configurar o envio no painel do EmailJS** e no código do s
    - `{{message}}`
    - `{{privacy_accept}}` (valor `sim` quando marcado)
 
-**Importante:** o template padrão “Contact Us” do EmailJS costuma usar `{{name}}`, `{{email}}`, `{{title}}` — **isso não bate com o site**. Troque no editor do EmailJS para os nomes acima, senão nome e resposta ficam vazios.
+**Importante:** o template padrão “Contact Us” usa `{{name}}`, `{{email}}`, `{{title}}`. **No site os nomes são outros** — use obrigatoriamente a tabela abaixo ou os valores ficam vazios.
 
-**Exemplo (aba Content):**
+### Mapa: formulário → variável no template
 
-- **Subject:** `Contato gcndigital.com.br — {{interest}}`
-- **Corpo (pode ser texto simples):**
+| Campo no site (`name`) | Variável no EmailJS |
+|------------------------|---------------------|
+| `from_name` | `{{from_name}}` |
+| `from_email` | `{{from_email}}` |
+| `company` | `{{company}}` |
+| `interest` | `{{interest}}` |
+| `message` | `{{message}}` |
+| `privacy_accept` | `{{privacy_accept}}` |
+
+### Passo a passo no EmailJS (editar “Contact Us”)
+
+1. **Email Templates** → abra **Contact Us** (`template_7g51m7w`).
+2. Na lateral direita (**campos do envio**), configure:
+
+   | Campo | Valor |
+   |--------|--------|
+   | **To Email** | `gilson.neves@gcndigital.com.br` (ou outro que você use no Cloudflare Routing) |
+   | **From Name** | `GCN Digital — formulário site` *(fixo)* ou `{{from_name}}` *(mostra o nome do visitante)* |
+   | **From Email** | Marque **Use Default Email Address** (envio sai pela conta Gmail ligada ao serviço). |
+   | **Reply To** | `{{from_email}}` *(obrigatório para responder ao visitante)* |
+   | **Bcc / Cc** | Deixe em branco, salvo necessidade sua. |
+
+3. Aba **Content**:
+   - Apague blocos antigos com `{{name}}`, `{{email}}`, `{{title}}` (arraste para lixo ou substitua o texto).
+   - **Subject:**
+
+   ```
+   Contato gcndigital.com.br — {{interest}}
+   ```
+
+   - **Corpo do e-mail** — modo texto simples ou um único bloco de texto/HTML com:
 
 ```text
-Novo contato pelo site.
+Novo contato pelo site gcndigital.com.br
 
 Nome: {{from_name}}
 E-mail: {{from_email}}
 Empresa: {{company}}
 Interesse: {{interest}}
-Aceite LGPD (política): {{privacy_accept}}
+Aceite da política de privacidade: {{privacy_accept}}
 
 Mensagem:
 {{message}}
 ```
 
-- **To Email:** o seu e-mail de recebimento.
-- **From Name:** `GCN Digital — site` (fixo) ou `{{from_name}}` (aparece o visitante como remetente “nome”).
-- **From Email:** deixe o padrão do serviço (Gmail) se a opção “Use Default Email Address” existir.
-- **Reply To:** `{{from_email}}` (essencial para responder ao visitante com um clique).
+   Se o editor for só HTML, pode usar:
 
-3. Salve o template (**Save**) — o **Template ID** aparece na lista (ex.: `template_7g51m7w`).
+```html
+<p>Novo contato pelo site <strong>gcndigital.com.br</strong></p>
+<p>
+<strong>Nome:</strong> {{from_name}}<br>
+<strong>E-mail:</strong> {{from_email}}<br>
+<strong>Empresa:</strong> {{company}}<br>
+<strong>Interesse:</strong> {{interest}}<br>
+<strong>Aceite política:</strong> {{privacy_accept}}
+</p>
+<p><strong>Mensagem:</strong></p>
+<p>{{message}}</p>
+```
+
+4. Clique em **Save**.
+5. Use **Test It** com valores fictícios para cada variável e confira se o e-mail chega (Cloudflare → Gmail).
 
 ---
 
