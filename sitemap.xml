@@ -16,4 +16,9 @@
       <image:caption>Marca GCN Digital Ltda.</image:caption>
     </image:image>
   </url>
+  <url>
+    <loc>https://gcndigital.com.br/privacidade.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
 </urlset>

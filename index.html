@@ -3,13 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1K75P33C7Z"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-1K75P33C7Z');
-  </script>
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="description" content="GCN Digital Ltda — Consultoria em SEO, Marketing Digital e Desenvolvimento Fullstack. Presença orgânica com rigor técnico e resultados mensuráveis.">
@@ -995,6 +988,99 @@
       white-space: nowrap;
     }
     .whatsapp-float:hover .whatsapp-label { opacity: 1; transform: none; }
+    body.lgpd-banner-visible .whatsapp-float { bottom: 7.5rem; }
+    @media (min-width: 600px) {
+      body.lgpd-banner-visible .whatsapp-float { bottom: 6.5rem; }
+    }
+
+    .lgpd-banner {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1200;
+      background: rgba(8, 26, 53, 0.98);
+      border-top: 1px solid rgba(240, 165, 0, 0.25);
+      padding: 1rem 0 calc(1rem + env(safe-area-inset-bottom, 0px));
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35);
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .lgpd-banner.lgpd-banner--show { transform: translateY(0); }
+    .lgpd-banner-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .lgpd-banner-text {
+      flex: 1;
+      min-width: min(100%, 280px);
+      margin: 0;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.82);
+      max-width: 52rem;
+    }
+    .lgpd-banner-text a {
+      color: var(--gold);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .lgpd-banner-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .lgpd-banner-actions button {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.55rem 1rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .lgpd-btn-outline {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .lgpd-btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .lgpd-btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .lgpd-btn-primary:hover {
+      background: var(--gold-l);
+    }
+    .form-privacy {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .form-privacy input {
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+      accent-color: var(--gold);
+      width: 16px;
+      height: 16px;
+    }
+    .form-privacy a {
+      color: var(--gold);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
 
     /* ══════════════════════════════════════════════
        BACK TO TOP
@@ -1608,6 +1694,10 @@
           <label for="cf-message">Mensagem</label>
           <textarea id="cf-message" name="message" rows="5" placeholder="Descreva o seu projeto ou desafio..." required maxlength="4000"></textarea>
         </div>
+        <label class="form-privacy">
+          <input type="checkbox" name="privacy_accept" id="cf-privacy" value="sim" required>
+          <span>Li e aceito o tratamento dos meus dados pessoais conforme a <a href="/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span>
+        </label>
         <button type="submit" class="form-submit">Enviar mensagem →</button>
         <p id="form-feedback" class="form-feedback" role="status" aria-live="polite"></p>
       </form>
@@ -1626,6 +1716,7 @@
         <li><a href="#cases">Cases</a></li>
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="/privacidade.html">Privacidade</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
     </div>
@@ -1648,6 +1739,19 @@
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Voltar ao topo">
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
+
+<div id="lgpd-banner" class="lgpd-banner" role="dialog" aria-labelledby="lgpd-banner-title" aria-modal="false">
+  <div class="container lgpd-banner-inner">
+    <p id="lgpd-banner-title" class="lgpd-banner-text">
+      Utilizamos cookies e tecnologias similares para medição de audiência (Google Analytics), apenas se você aceitar. O formulário de contato envia dados ao prestador EmailJS conforme a
+      <a href="/privacidade.html">Política de Privacidade</a>.
+    </p>
+    <div class="lgpd-banner-actions">
+      <button type="button" class="lgpd-btn-outline" id="lgpd-reject">Recusar cookies de medição</button>
+      <button type="button" class="lgpd-btn-primary" id="lgpd-accept">Aceitar cookies de medição</button>
+    </div>
+  </div>
+</div>
 
 <!-- ══ SCRIPTS ════════════════════════════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -1694,6 +1798,55 @@
       setTimeout(() => el.classList.add('visible'), i * 120);
     });
   });
+
+  const LGPD_STORAGE_KEY = 'gcn_lgpd_analytics';
+  const GA_MEASUREMENT_ID = 'G-1K75P33C7Z';
+
+  function loadGoogleAnalytics() {
+    if (window.gcn_ga_loaded) return;
+    window.gcn_ga_loaded = true;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_MEASUREMENT_ID);
+    document.head.appendChild(s);
+    s.onload = function () {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', GA_MEASUREMENT_ID);
+    };
+  }
+
+  function lgpdApplyConsent(val) {
+    try {
+      localStorage.setItem(LGPD_STORAGE_KEY, val);
+    } catch (err) {}
+    document.body.classList.remove('lgpd-banner-visible');
+    const banner = document.getElementById('lgpd-banner');
+    banner.classList.remove('lgpd-banner--show');
+    if (val === 'accept') loadGoogleAnalytics();
+  }
+
+  (function lgpdInit() {
+    const banner = document.getElementById('lgpd-banner');
+    let saved = null;
+    try {
+      saved = localStorage.getItem(LGPD_STORAGE_KEY);
+    } catch (err) {}
+    if (saved === 'accept') {
+      loadGoogleAnalytics();
+      return;
+    }
+    if (saved === 'reject') return;
+    document.body.classList.add('lgpd-banner-visible');
+    banner.classList.add('lgpd-banner--show');
+    document.getElementById('lgpd-accept').addEventListener('click', function () {
+      lgpdApplyConsent('accept');
+    });
+    document.getElementById('lgpd-reject').addEventListener('click', function () {
+      lgpdApplyConsent('reject');
+    });
+  })();
 
   const EMAILJS = {
     publicKey: 'SUBSTITUA_PUBLIC_KEY',
