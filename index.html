@@ -901,6 +901,8 @@
       letter-spacing: .04em;
     }
     .form-submit:hover { background: var(--gold-l); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(240,165,0,.3); }
+    .form-submit:disabled { opacity: .65; cursor: not-allowed; transform: none; box-shadow: none; }
+    .form-feedback { margin-top: .85rem; font-size: .82rem; min-height: 1.3rem; color: rgba(255,255,255,.55); }
 
     /* ══════════════════════════════════════════════
        FOOTER
@@ -1573,43 +1575,42 @@
         </div>
       </div>
 
-      <div class="contact-form reveal reveal-delay-2">
+      <form id="gc-contact-form" class="contact-form reveal reveal-delay-2" autocomplete="on">
         <div class="form-row">
           <div class="form-group">
-            <label>Nome</label>
-            <input type="text" placeholder="Seu nome completo">
+            <label for="cf-name">Nome</label>
+            <input id="cf-name" name="from_name" type="text" placeholder="Seu nome completo" required maxlength="120">
           </div>
           <div class="form-group">
-            <label>E-mail</label>
-            <input type="email" placeholder="seu@email.com">
+            <label for="cf-email">E-mail</label>
+            <input id="cf-email" name="from_email" type="email" placeholder="seu@email.com" required maxlength="120">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Empresa</label>
-            <input type="text" placeholder="Nome da empresa">
+            <label for="cf-company">Empresa</label>
+            <input id="cf-company" name="company" type="text" placeholder="Nome da empresa" maxlength="120">
           </div>
           <div class="form-group">
-            <label>Área de interesse</label>
-            <select>
+            <label for="cf-interest">Área de interesse</label>
+            <select id="cf-interest" name="interest">
               <option value="">Selecione...</option>
-              <option>SEO Técnico</option>
-              <option>GEO / Visibilidade em IA</option>
-              <option>Desenvolvimento Fullstack</option>
-              <option>Infraestrutura Cloud</option>
-              <option>IT Management</option>
-              <option>Consultoria Estratégica</option>
+              <option value="SEO Técnico">SEO Técnico</option>
+              <option value="GEO / Visibilidade em IA">GEO / Visibilidade em IA</option>
+              <option value="Desenvolvimento Fullstack">Desenvolvimento Fullstack</option>
+              <option value="Infraestrutura Cloud">Infraestrutura Cloud</option>
+              <option value="IT Management">IT Management</option>
+              <option value="Consultoria Estratégica">Consultoria Estratégica</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label>Mensagem</label>
-          <textarea rows="5" placeholder="Descreva o seu projeto ou desafio..."></textarea>
+          <label for="cf-message">Mensagem</label>
+          <textarea id="cf-message" name="message" rows="5" placeholder="Descreva o seu projeto ou desafio..." required maxlength="4000"></textarea>
         </div>
-        <button class="form-submit" onclick="handleFormSubmit(event)">
-          Enviar mensagem →
-        </button>
-      </div>
+        <button type="submit" class="form-submit">Enviar mensagem →</button>
+        <p id="form-feedback" class="form-feedback" role="status" aria-live="polite"></p>
+      </form>
 
     </div>
   </div>
@@ -1649,6 +1650,7 @@
 </button>
 
 <!-- ══ SCRIPTS ════════════════════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   // ── Nav scroll ──────────────────────────────
   const navbar = document.getElementById('navbar');
@@ -1693,19 +1695,56 @@
     });
   });
 
-  // ── Form submit ─────────────────────────────
-  function handleFormSubmit(e) {
-    e.preventDefault();
-    const btn = e.target;
-    btn.textContent = 'Mensagem enviada! ✓';
-    btn.style.background = '#16A34A';
-    btn.style.color = '#fff';
-    setTimeout(() => {
-      btn.textContent = 'Enviar mensagem →';
-      btn.style.background = '';
-      btn.style.color = '';
-    }, 3500);
+  const EMAILJS = {
+    publicKey: 'SUBSTITUA_PUBLIC_KEY',
+    serviceId: 'SUBSTITUA_SERVICE_ID',
+    templateId: 'SUBSTITUA_TEMPLATE_ID'
+  };
+
+  const contactForm = document.getElementById('gc-contact-form');
+  const formFeedback = document.getElementById('form-feedback');
+
+  function emailJsConfigured() {
+    return typeof emailjs !== 'undefined' &&
+      EMAILJS.publicKey && !String(EMAILJS.publicKey).includes('SUBSTITUA') &&
+      EMAILJS.serviceId && !String(EMAILJS.serviceId).includes('SUBSTITUA') &&
+      EMAILJS.templateId && !String(EMAILJS.templateId).includes('SUBSTITUA');
   }
+
+  if (emailJsConfigured()) {
+    emailjs.init({ publicKey: EMAILJS.publicKey });
+  }
+
+  contactForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    formFeedback.textContent = '';
+    if (!emailJsConfigured()) {
+      formFeedback.textContent = 'Configure EmailJS (publicKey, serviceId, templateId) ou envie por gilson@gcndigital.com.br.';
+      return;
+    }
+    const btn = contactForm.querySelector('.form-submit');
+    const original = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    try {
+      await emailjs.sendForm(EMAILJS.serviceId, EMAILJS.templateId, contactForm, { publicKey: EMAILJS.publicKey });
+      formFeedback.textContent = '';
+      btn.textContent = 'Mensagem enviada! ✓';
+      btn.style.background = '#16A34A';
+      btn.style.color = '#fff';
+      contactForm.reset();
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 4000);
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = original;
+      formFeedback.textContent = 'Não foi possível enviar agora. Escreva para gilson@gcndigital.com.br ou WhatsApp.';
+    }
+  });
 </script>
 </body>
 </html>
