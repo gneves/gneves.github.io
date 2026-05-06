@@ -36,7 +36,7 @@ O fluxo seguro é: **configurar o envio no painel do EmailJS** e no código do s
 ## 2. Template de e-mail
 
 1. **Email Templates → Create New Template**.
-2. Campos que o site já envia (`name` no formulário → variável no modelo):
+2. Campos que o site envia (o `name` de cada input vira variável `{{...}}` no modelo):
 
    - `{{from_name}}`
    - `{{from_email}}`
@@ -45,9 +45,32 @@ O fluxo seguro é: **configurar o envio no painel do EmailJS** e no código do s
    - `{{message}}`
    - `{{privacy_accept}}` (valor `sim` quando marcado)
 
-3. Defina **To Email** (ex.: `gilson@gcndigital.com.br`).
-4. Em **Reply To**, use `{{from_email}}` para responder direto ao visitante.
-5. Salve e anote o **Template ID**.
+**Importante:** o template padrão “Contact Us” do EmailJS costuma usar `{{name}}`, `{{email}}`, `{{title}}` — **isso não bate com o site**. Troque no editor do EmailJS para os nomes acima, senão nome e resposta ficam vazios.
+
+**Exemplo (aba Content):**
+
+- **Subject:** `Contato gcndigital.com.br — {{interest}}`
+- **Corpo (pode ser texto simples):**
+
+```text
+Novo contato pelo site.
+
+Nome: {{from_name}}
+E-mail: {{from_email}}
+Empresa: {{company}}
+Interesse: {{interest}}
+Aceite LGPD (política): {{privacy_accept}}
+
+Mensagem:
+{{message}}
+```
+
+- **To Email:** o seu e-mail de recebimento.
+- **From Name:** `GCN Digital — site` (fixo) ou `{{from_name}}` (aparece o visitante como remetente “nome”).
+- **From Email:** deixe o padrão do serviço (Gmail) se a opção “Use Default Email Address” existir.
+- **Reply To:** `{{from_email}}` (essencial para responder ao visitante com um clique).
+
+3. Salve o template (**Save**) — o **Template ID** aparece na lista (ex.: `template_7g51m7w`).
 
 ---
 
@@ -57,13 +80,15 @@ No final do `index.html`, localize:
 
 ```js
 const EMAILJS = {
-  publicKey: 'SUBSTITUA_PUBLIC_KEY',
-  serviceId: 'SUBSTITUA_SERVICE_ID',
-  templateId: 'SUBSTITUA_TEMPLATE_ID'
+  publicKey: 'SUA_PUBLIC_KEY',
+  serviceId: 'service_7x5ac2h',
+  templateId: 'template_7g51m7w'
 };
 ```
 
-Substitua pelos valores do painel EmailJS (**Account → API Keys** / integrações).
+**Private Key** do EmailJS **não** entra no site nem no Git — uso restrito a integrações server-side. Se ela vazar, gere outra no painel.
+
+Substitua `SUA_PUBLIC_KEY` pelo valor em **Account → API Keys**, se ainda não estiver preenchido no arquivo.
 
 Depois: `git add index.html` → `git commit` → `git push`.
 
@@ -78,7 +103,7 @@ Depois: `git add index.html` → `git commit` → `git push`.
 
 ## 5. O que **não** fazer no Git
 
-- Não commitar senha SMTP, senha de app do Gmail ou segredos da API de e-mail.
+- Não commitar senha SMTP, senha de app do Gmail, **Private Key** do EmailJS ou segredos de API.
 - Não colocar `.env` com segredos no repositório público.
 
 Para builds futuros com injeção por CI (GitHub Actions), o **public key** do EmailJS ainda aparece no bundle público; proteção real é **domínio permitido** + **rate limit** no EmailJS.
